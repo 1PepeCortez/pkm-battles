@@ -1,0 +1,36 @@
+#warn-list {
+    position: fixed;
+    top: 12%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.toast-create {
+    position: relative;
+    padding: 4px 12px 4px;
+    border-radius: 8px;
+    background: #3a3a3a;
+    margin-bottom: 10px;
+    animation-duration: .5s;
+    animation-name: toastFadeIn;
+
+    width: 350px;
+    text-align: center;
+}
+
+@keyframes toastFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.toast-delete {
+    animation-name: toastFadeOut;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes toastFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

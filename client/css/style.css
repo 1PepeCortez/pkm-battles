@@ -1,0 +1,113 @@
+body {
+    background-color: #24243e !important;
+
+    color: white !important;
+
+    font-weight: bold !important;
+    font-family: 'Trebuchet MS' !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+h4, button {
+    font-weight: bold !important;
+}
+
+#container-battle table {
+    vertical-align: middle !important;
+
+    color: white !important;
+
+    font-weight: bold !important;
+    font-family: 'Trebuchet MS' !important;
+
+    border-bottom: transparent !important;
+}
+#container-ranking table {
+    
+    vertical-align: middle !important;
+    color: white !important;
+    border: 1px solid white;
+}
+
+.imagen-pokemon {
+    width: 60%;
+}
+
+.img-social {
+    width: 2%;
+}
+
+.img-logo {
+    width: 15%;
+}
+
+#time-battle {
+	display: flex;
+	justify-content: center;
+    color: white;
+}
+
+.time-section {
+	width: 80px;
+	height: 60px;
+	margin: 0 10px;
+    border-radius: 5px;
+    background-color: #122238;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.simply-amount {
+	display: block;
+	font-size: 20px;
+}
+
+.simply-word {
+	font-size: 10px;
+}
+
+#container-ranking {
+    display: none;
+}
+
+#table-select-pokemon, #battle-last-winner {
+    display: none;
+}
+
+#table-select-pokemon td {
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+#table-select-pokemon td:hover {
+    background-color: rgb(120, 120, 120);
+}
+
+/* ----------------------------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+    
+    .imagen-pokemon {
+        width: 100%;
+    }
+
+    .img-social {
+        width: 10%;
+    }
+
+    .img-logo {
+        width: 45%;
+    }
+
+    #time-battle {
+        font-size: 30px;
+    }
+    
+    /*#select-pokemon-1 img, #select-pokemon-2 img {
+        width: 100%;
+    }*/
+}

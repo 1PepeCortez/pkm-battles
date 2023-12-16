@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pokemon Battles</title>
+    <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/alerts.css">
+</head>
+<body>
+
+    <div id="warn-list">
+    </div>
+
+    <div class="container mt-3">
+
+        <div class="text-center">
+            <img class="img-logo" src="./imagenes/logo.png" />
+        </div>
+
+        <hr/>
+
+        <div id="container-battle">
+
+            <div class="row text-center">
+
+                <div class="col">
+          
+                    <div id="time-battle">
+                        <div class="time-section">
+                            <div>
+                                <span class="simply-amount" id="time-battle-min">00</span>
+                                <span class="simply-word">Minutos</span>
+                            </div>
+                        </div>
+                        <div class="time-section">
+                            <div>
+                                <span class="simply-amount" id="time-battle-sec">00</span>
+                                <span class="simply-word">Segundos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="table-select-pokemon">
+                        
+                        <table class="table mt-2">
+                            <tbody id="table-final">
+                            </tbody>
+                        </table>
+
+                        <button class="btn btn-danger btn-sm" id="select-pokemon">
+                            <i class="fa-solid fa-paper-plane"></i> Send selected
+                        </button>
+                    </div>
+
+                    <table class="table" id="table-battle">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img class="imagen-pokemon" id="pokemon-img-1" style="transform: scaleX(-1);"/>
+
+                                    <p id="pokemon-info-1">
+                                    </p>
+
+                                    <button class="btn btn-success btn-sm rounded-pill" id="pokemon-vote-1">
+                                        <i class="fa-solid fa-circle-check"></i> Vote
+                                    </button>
+                                </td>
+                                
+                                <td style="width: 40%">
+                                    <img class="img-fluid" src="./imagenes/versus.png"/>
+                                </td>
+
+                                <td>
+                                    <img class="imagen-pokemon" id="pokemon-img-2"/>
+
+                                    <p id="pokemon-info-2">
+                                    </p>
+
+                                    <button class="btn btn-success btn-sm rounded-pill" id="pokemon-vote-2">
+                                        <i class="fa-solid fa-circle-check"></i> Vote
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row mb-3" id="battle-last-winner">
+                <div class="col text-center" id="last-winner-text">
+                </div>
+            </div>
+
+            <div class="row mb-3" id="battle-progress">
+                <div class="col-sm-6 mx-auto">
+
+                    <div class="progress" style="height: 35px">
+                        <div class="progress-bar" style="width: 100%; background-color: red;" id="pokemon-progress-1"></div>
+                        <div class="progress-bar" style="width: 100%; background-color: orange;" id="pokemon-progress-2"></div>
+                    </div>
+                    
+                    <div class="row text-center">
+                        <div class="col">
+                            <span id="pokemon-percent-1">50%</span>
+                            &nbsp;&middot;&nbsp;
+                            <span id="total-votes">0</span>
+                            &nbsp;&middot;&nbsp;
+                            <span id="pokemon-percent-2">50%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="container-ranking">
+
+            <div class="row mb-5">
+                <div class="col-sm-8 mx-auto">
+                
+                    <div class="text-center">
+                        <button class="btn btn-warning btn-sm" id="btn-rank-winrate">
+                            <i class="fa-solid fa-arrow-down"></i> Winrate
+                        </button>
+    
+                        <button class="btn btn-primary btn-sm" id="btn-rank-wins">
+                            Wins
+                        </button>
+    
+                        <button class="btn btn-primary btn-sm" id="btn-rank-loses">
+                            Loses
+                        </button>
+    
+                        <button class="btn btn-primary btn-sm" id="btn-rank-ties">
+                            Ties
+                        </button>
+    
+                        <button class="btn btn-primary btn-sm" id="btn-rank-battles">
+                            Battles
+                        </button>
+
+                    </div>
+
+                    <div class="input-group input-group-sm mt-4">
+                        <input class="form-control" id="searchRank" type="text" placeholder="Search for a pokemon..." size="20">
+                        <button class="btn btn-danger" type="button" id="searchClear"><i class="fa-solid fa-square-minus"></i></button>
+                    </div>
+
+                    <table class="table mt-2" id="rank-table">
+                        
+                    </table>
+
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary btn-sm" id="btn-rank-table">
+                            <i class="fa-solid fa-arrow-down"></i> Show more
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CHANGE VIEW -->
+
+        <div class="row mb-5">
+            <div class="col text-center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+
+                    <button type="button" class="btn btn-secondary btn-sm" disabled="true" id="btn-battles">
+                        <i class="fa-brands fa-battle-net"></i> Battles
+                    </button>
+
+                    <button type="button" class="btn btn-secondary btn-sm" id="btn-ranking">
+                        <i class="fa-solid fa-ranking-star"></i> Ranking
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid mb-3">
+
+        <hr/>
+
+        <div class="row">
+            <div class="col mx-auto text-center">
+                <a href="https://twitter.com/intent/follow?screen_name=1PokemonBattles" target="_blank">
+                    <img class="img-social" src="./imagenes/socials/twitter.png"/>
+                </a>
+                &middot;
+                <a href="https://t.me/+JWKhtfJIFZk3YWNk" target="_blank">
+                    <img class="img-social" src="./imagenes/socials/telegram.png"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/vistas.js"></script>
+    <script src="./js/alerts.js"></script>
+    <script src="./js/pokemonSelect.js"></script>
+    <script src="./js/ranking.js"></script>
+    <script src="./js/battle.js"></script>
+</body>
+</html>
